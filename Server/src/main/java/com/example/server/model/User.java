@@ -1,9 +1,8 @@
-package com.example.server.mapper;
+package com.example.server.model;
 
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
