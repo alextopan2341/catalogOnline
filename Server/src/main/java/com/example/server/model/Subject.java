@@ -1,4 +1,4 @@
-package com.example.server.mapper;
+package com.example.server.model;
 
 public enum Subject {
     ROMANA,

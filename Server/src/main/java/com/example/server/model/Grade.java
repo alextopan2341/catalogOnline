@@ -1,4 +1,4 @@
-package com.example.server.mapper;
+package com.example.server.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
