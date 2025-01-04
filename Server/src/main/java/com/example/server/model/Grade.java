@@ -16,7 +16,7 @@ import java.util.UUID;
 @ToString
 public class Grade {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @ManyToOne
