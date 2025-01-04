@@ -1,4 +1,4 @@
-xpackage com.example.server;
+package com.example.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
