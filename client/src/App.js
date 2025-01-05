@@ -1,9 +1,9 @@
+import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import './App.css';
-import { BrowserRouter, Routes,Route   } from "react-router-dom";
-
-import LoginPage from './pages/LoginPage';
-import MainPage from './pages/MainPage';
+import LoginPage from "./pages/LoginPage";
+import MainPage from "./pages/MainPage";
+import RegisterPage from "./pages/RegisterPage";
 function App() {
   return (
     // <div className="App">
@@ -24,8 +24,9 @@ function App() {
     // </div>
     <BrowserRouter>
       <Routes>
-          <Route path='/' element={<LoginPage/>}/>
-          <Route path='/main' element={<MainPage/>}/>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/main" element={<MainPage />} />
+        <Route path="/register" element={<RegisterPage />} />
       </Routes>
     </BrowserRouter>
   );
