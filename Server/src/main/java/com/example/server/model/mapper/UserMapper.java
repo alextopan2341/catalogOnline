@@ -14,7 +14,7 @@ public class UserMapper {
                 .id(user.getId().toString())
                 .fullName(user.getFullName())
                 .email(user.getEmail())
-                .role(user.getRole().toString())
+                .role(user.getRole())
                 .subjects(user.getSubjects().stream()
                         .map(Enum::toString)
                         .collect(Collectors.toSet()))
@@ -29,7 +29,7 @@ public class UserMapper {
                 .subjects(dto.getSubjects().stream()
                         .map(Subject::valueOf)
                         .collect(Collectors.toSet()))
-                .role(Role.STUDENT)
+                .role(dto.getRole())
                 .build();
     }
 }
