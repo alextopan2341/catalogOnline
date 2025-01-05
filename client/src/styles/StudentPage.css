@@ -1,0 +1,40 @@
+.student-page {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.student-page h1 {
+  font-size: 2em;
+  color: #333;
+}
+
+.student-page h2 {
+  font-size: 1.5em;
+  color: #555;
+}
+
+.grades,
+.absences {
+  margin-top: 20px;
+}
+
+.grades ul,
+.absences ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.grades li,
+.absences li {
+  margin: 10px 0;
+}
+
+.grades li {
+  color: green;
+}
+
+.absences li {
+  color: red;
+}

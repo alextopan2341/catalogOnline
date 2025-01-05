@@ -10,13 +10,18 @@ const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [role, setRole] = useState("STUDENT"); // Valoare implicită
+  const [role, setRole] = useState(""); // Nu mai setăm o valoare implicită
   const [subjects, setSubjects] = useState([]);
   const [apiError, setApiError] = useState(null);
 
   const handleRegister = async () => {
     if (password !== confirmPassword) {
       setApiError("Passwords do not match.");
+      return;
+    }
+    if (role === "") {
+      // Verificăm dacă rolul nu este selectat
+      setApiError("Please select a role.");
       return;
     }
 
@@ -41,7 +46,12 @@ const RegisterPage = () => {
       if (response.ok) {
         const data = await response.json();
         console.log("User registered:", data);
-        navigate("/login");
+        // După înregistrare, redirecționăm utilizatorul
+        if (role === "STUDENT") {
+          navigate("/student"); // Redirecționare către StudentPage
+        } else if (role === "PROFESSOR") {
+          navigate("/professor"); // Redirecționare către ProfessorPage
+        }
       } else {
         const errorMessage = await response.text();
         setApiError(errorMessage);
@@ -99,6 +109,7 @@ const RegisterPage = () => {
             value={role}
             onChange={(e) => setRole(e.target.value)}
           >
+            <option value="">Select Role</option> {/* Opțiune goală */}
             <option value="STUDENT">Student</option>
             <option value="PROFESSOR">Professor</option>
             <option value="ADMIN">Admin</option>

@@ -18,10 +18,17 @@ const LoginPage = () => {
         console.log(response);
 
         localStorage.setItem("jwtToken", response);
+
         getUser().then((user) => {
-          localStorage.setItem("user", user);
+          localStorage.setItem("user", JSON.stringify(user));
+
+          // Verificăm rolul utilizatorului și redirecționăm în consecință
+          if (user.role === "STUDENT") {
+            navigate("/student"); // Redirecționare către StudentPage
+          } else if (user.role === "PROFESSOR") {
+            navigate("/professor"); // Redirecționare către ProfessorPage
+          }
         });
-        navigate("/main");
       })
       .catch((error) => {
         console.log(error);
