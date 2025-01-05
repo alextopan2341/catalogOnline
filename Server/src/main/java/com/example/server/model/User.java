@@ -12,7 +12,6 @@ import java.util.UUID;
 @Builder
 @Getter
 @Setter
-@ToString
 @Table(name="users")
 public class User {
     @Id

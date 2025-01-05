@@ -33,4 +33,8 @@ public class UserService {
         }
         return PasswordHasher.verifyPassword(userLoginDto.getPassword(),dbUser.getPassword());
     }
+
+    public void saveUser(User user) {
+        userRepository.save(user);
+    }
 }
