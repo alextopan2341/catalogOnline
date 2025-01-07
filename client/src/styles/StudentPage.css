@@ -3,7 +3,7 @@
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background-image: url(../image.png);
+  background-image: url(../image.png); /*Eventual schimbam poza sa nu fie aceeasi cu login*/
   background-size: cover;
   background-position: center;
 }
