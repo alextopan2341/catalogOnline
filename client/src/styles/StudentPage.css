@@ -1,40 +1,68 @@
-.student-page {
-  font-family: Arial, sans-serif;
-  padding: 20px;
-  max-width: 800px;
-  margin: 0 auto;
+.Student {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-image: url(../image.png);
+  background-size: cover;
+  background-position: center;
 }
 
-.student-page h1 {
+.student-content {
+  width: 40%;
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.student-content h1 {
   font-size: 2em;
   color: #333;
 }
 
-.student-page h2 {
+.student-content h3 {
   font-size: 1.5em;
   color: #555;
+  margin-top: 20px;
 }
 
 .grades,
 .absences {
   margin-top: 20px;
+  width: 100%;
 }
 
-.grades ul,
-.absences ul {
-  list-style-type: none;
-  padding: 0;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
 }
 
-.grades li,
-.absences li {
-  margin: 10px 0;
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
 }
 
-.grades li {
+th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+tr:hover {
+  background-color: #f9f9f9;
+}
+
+.grades td {
   color: green;
 }
 
-.absences li {
+.absences td {
   color: red;
 }
