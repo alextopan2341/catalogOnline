@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "../styles/StudentPage.css";
 import { customFetch } from "../httpClient"; // Importăm customFetch
 
 const StudentPage = () => {
@@ -63,32 +64,52 @@ const StudentPage = () => {
   }
 
   return (
-    <div>
-      <h2>Welcome, {studentData?.fullName}!</h2>
-      <p>This is your student dashboard.</p>
+    <div className="Student">
+      <div className="student-content">
+        <h1>Welcome, {studentData?.fullName}!</h1>
+        <p>This is your student dashboard.</p>
 
-      <div>
-        <h3>Your Grades</h3>
-        <ul>
-          {Object.entries(studentData.grades).map(([subject, grade]) => (
-            <li key={subject}>
-              {subject}: {grade}
-            </li>
-          ))}
-        </ul>
-      </div>
+        <div className="grades">
+          <h3>Your Grades</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Subject</th>
+                <th>Grade</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.entries(studentData.grades).map(([subject, grade]) => (
+                <tr key={subject}>
+                  <td>{subject}</td>
+                  <td>{grade}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-      <div>
-        <h3>Your Absences</h3>
-        <ul>
-          {Object.entries(studentData.absences).map(
-            ([subject, absenceCount]) => (
-              <li key={subject}>
-                {subject}: {absenceCount} absences
-              </li>
-            )
-          )}
-        </ul>
+        <div className="absences">
+          <h3>Your Absences</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Subject</th>
+                <th>Absences</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.entries(studentData.absences).map(
+                ([subject, absenceCount]) => (
+                  <tr key={subject}>
+                    <td>{subject}</td>
+                    <td>{absenceCount}</td>
+                  </tr>
+                )
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
