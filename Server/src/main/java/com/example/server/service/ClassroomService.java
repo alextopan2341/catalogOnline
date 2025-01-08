@@ -101,7 +101,7 @@ public class ClassroomService {
             for (User student : classroom.getStudents()) {
                 Map<String, String> grades = studentGrades.getOrDefault(student.getId(), new HashMap<>());
                 Map<String, Integer> absencesForStudent = studentAbsences.getOrDefault(student.getId(), new HashMap<>());
-                studentDtos.add(new StudentDto(student.getFullName(), student.getEmail(), grades, absencesForStudent));
+                studentDtos.add(new StudentDto(student.getId(),student.getFullName(), student.getEmail(), grades, absencesForStudent));
             }
         }
         return studentDtos;
