@@ -42,6 +42,7 @@ const StudentPage = () => {
 
         // Setează datele studentului
         setStudentData(data);
+
         setLoading(false);
       } catch (err) {
         console.error("Error fetching student data:", err);
@@ -68,7 +69,6 @@ const StudentPage = () => {
       <div className="student-content">
         <h1>Welcome, {studentData?.fullName}!</h1>
         <p>This is your student dashboard.</p>
-
         <div className="grades">
           <h3>Your Grades</h3>
           <table>
