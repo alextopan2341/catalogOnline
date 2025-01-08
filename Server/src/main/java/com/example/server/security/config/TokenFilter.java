@@ -1,6 +1,7 @@
 package com.example.server.security.config;
 
 
+import com.example.server.model.Role;
 import com.example.server.model.User;
 import com.example.server.security.jwttoken.JwtService;
 import com.example.server.service.UserService;
@@ -56,6 +57,14 @@ public class TokenFilter extends OncePerRequestFilter {
             if (!jwtService.isTokenValid(token, userDetails)) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
+            }
+
+            //for modify path only admin can access
+            String path = request.getServletPath();
+            if(path.contains("/classrooms")){
+                if(!userDetails.getRole().equals(Role.ADMIN)){
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                }
             }
 
 
