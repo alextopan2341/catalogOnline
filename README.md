@@ -145,4 +145,3 @@ Pentru a contribui la proiect:
 ![Schema bazei de date](docs/catalog_online_db_schema.png)
 
 
-

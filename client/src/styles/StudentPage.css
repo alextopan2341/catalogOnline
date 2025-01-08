@@ -3,13 +3,14 @@
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background-image: url(../image.png); /*Eventual schimbam poza sa nu fie aceeasi cu login*/
+  background-image: url(../image.png);
   background-size: cover;
   background-position: center;
+  position: relative; /* Required for positioning sign-out button */
 }
 
 .student-content {
-  width: 40%;
+  width: 70%;
   background-color: rgba(255, 255, 255, 0.85);
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -65,4 +66,22 @@ tr:hover {
 
 .absences td {
   color: red;
+}
+
+/* Sign Out Button Style */
+.signout-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #ff4c4c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+
+.signout-btn:hover {
+  background-color: #ff1f1f;
 }

@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -61,23 +62,25 @@ public class UserService {
     }
 
     public StudentDto getStudentData(User user) {
-
-        Set<Subject> subjects = user.getSubjects();
+        Set<Subject> subjects = user.getSubjects();  // Get all subjects for the student
         Map<String, String> grades = new HashMap<>();
-        Map<String, Integer> absences = new HashMap<>();
 
-
+        // Iterate over each subject and fetch grades
         for (Subject subject : subjects) {
-            String grade = getGradeForSubject(user, subject);
-            //int absenceCount = getAbsencesForSubject(user, subject);
+            List<Grade> subjectGrades = gradeRepository.findByStudentAndSubject(user, subject);
 
-            grades.put(subject.name(), grade);
-            //absences.put(subject.name(), absenceCount);
+            // Concatenate all grades for the subject into a single string
+            String gradeList = subjectGrades.stream()
+                    .map(grade -> String.valueOf(grade.getGrade()))
+                    .collect(Collectors.joining(", "));
+
+            grades.put(subject.name(), gradeList);  // Store the concatenated grades as a single string
         }
 
-        // Returnează un obiect StudentDto cu toate informațiile necesare
-        return new StudentDto(user.getId(),user.getFullName(), user.getEmail(), grades, absences);
+        // Return the student DTO with the concatenated grades
+        return new StudentDto(user.getId(), user.getFullName(), user.getEmail(), grades, new HashMap<>());
     }
+
 
     private String getGradeForSubject(User user, Subject subject) {
         List<Grade> grades = gradeRepository.findByStudentAndSubject(user, subject);
