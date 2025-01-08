@@ -108,7 +108,6 @@ public class ClassroomService {
         }
         return studentDtos;
     }
-
     public Classroom modifyStudentsToClassroom(String classroomId, AddStudentDto addStudentDto) {
         Classroom classroom = classroomRepository.findById(UUID.fromString(classroomId))
                 .orElseThrow(() -> new RuntimeException("Classroom not found"));
@@ -141,3 +140,4 @@ public class ClassroomService {
         return classroomRepository.getReferenceById(classroomId);
     }
 }
+
