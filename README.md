@@ -15,6 +15,8 @@ Această documentație oferă o prezentare detaliată a proiectului `Catalog Onl
 
 ## Structura Proiectului
 
+![Diagrama proiectului](catalog_online_diagram.png)
+
 ### Client
 
 Localizat în directorul `client`, include:
@@ -139,5 +141,8 @@ Pentru a contribui la proiect:
 3. Faceți modificările dorite și trimiteți un pull request.
 
 ---
+![Diagrama](docs/catalog_online_diagram.png)
+![Schema bazei de date](docs/catalog_online_db_schema.png)
+
 
 
