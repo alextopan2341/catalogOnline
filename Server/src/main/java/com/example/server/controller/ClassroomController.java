@@ -34,7 +34,7 @@ public class ClassroomController {
     public ResponseEntity<Classroom> addStudentsToClassroom(
             @PathVariable("classroomId") String classroomId,
             @RequestBody AddStudentDto addStudentDto) {
-        Classroom updatedClassroom = classroomService.addStudentsToClassroom(classroomId, addStudentDto);
+        Classroom updatedClassroom = classroomService.modifyStudentsToClassroom(classroomId, addStudentDto);
         return ResponseEntity.ok(updatedClassroom);
     }
 
