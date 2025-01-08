@@ -28,6 +28,7 @@ public class AbsenceService {
                 .orElseThrow(() -> new RuntimeException("Teacher not found"));
 
         Absence absence = new Absence();
+        //absence.setId(UUID.randomUUID());
         absence.setStudent(student);
         absence.setTeacher(teacher);
         absence.setSubject(absenceDto.getSubject());
@@ -43,10 +44,10 @@ public class AbsenceService {
         User student = userRepository.findById(studentId)
                 .orElseThrow(() -> new RuntimeException("Student not found"));
 
-        // Ensure the user has the "STUDENT" role
-        if (!"STUDENT".equals(student.getRole())) {
-            throw new RuntimeException("The specified user is not a student.");
-        }
+//        // Ensure the user has the "STUDENT" role
+//        if (!"STUDENT".equals(student.getRole())) {
+//            throw new RuntimeException("The specified user is not a student.");
+//        }
 
         // Retrieve absences directly using the repository method
         return absenceRepository.findByStudentId(studentId);
