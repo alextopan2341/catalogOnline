@@ -17,6 +17,8 @@ const LoginPage = () => {
       .then((response) => {
         console.log(response);
 
+        const token = response.token; // Presupunând că tokenul vine în răspunsul de la server
+        const professorId = response.professorId;
         localStorage.setItem("jwtToken", response);
 
         getUser().then((user) => {
@@ -26,6 +28,7 @@ const LoginPage = () => {
           if (user.role === "STUDENT") {
             navigate("/student"); // Redirecționare către StudentPage
           } else if (user.role === "PROFESSOR") {
+            localStorage.setItem("professorId", user.id);
             navigate("/professor"); // Redirecționare către ProfessorPage
           }else if(user.role === "ADMIN"){
             navigate("/admin")

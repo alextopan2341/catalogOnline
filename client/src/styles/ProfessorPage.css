@@ -1,14 +1,14 @@
-.Student {
+.Professor {
   display: flex;
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background-image: url(../image.png); /*Eventual schimbam poza sa nu fie aceeasi cu login*/
+  background-image: url(../image.png); /* Schimbă imaginea dacă este nevoie */
   background-size: cover;
   background-position: center;
 }
 
-.student-content {
+.professor-content {
   width: 40%;
   background-color: rgba(255, 255, 255, 0.85);
   border-radius: 8px;
@@ -21,21 +21,26 @@
   text-align: center;
 }
 
-.student-content h1 {
+.professor-content h2 {
   font-size: 2em;
   color: #333;
 }
 
-.student-content h3 {
-  font-size: 1.5em;
+.professor-content p {
+  font-size: 1.2em;
   color: #555;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
-.grades,
-.absences {
+.dashboard-section {
   margin-top: 20px;
   width: 100%;
+}
+
+.dashboard-section h3 {
+  font-size: 1.5em;
+  color: #555;
+  margin-bottom: 10px;
 }
 
 table {
@@ -44,7 +49,8 @@ table {
   margin-top: 10px;
 }
 
-th, td {
+th,
+td {
   padding: 12px;
   text-align: left;
   border-bottom: 1px solid #ddd;
@@ -59,10 +65,10 @@ tr:hover {
   background-color: #f9f9f9;
 }
 
-.grades td {
-  color: green;
+.attendance td {
+  color: blue;
 }
 
-.absences td {
-  color: red;
+.tasks td {
+  color: purple;
 }

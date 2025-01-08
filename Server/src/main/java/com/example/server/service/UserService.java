@@ -74,7 +74,7 @@ public class UserService {
         }
 
         // Returnează un obiect StudentDto cu toate informațiile necesare
-        return new StudentDto(user.getFullName(), user.getEmail(), grades, absences);
+        return new StudentDto(user.getId(),user.getFullName(), user.getEmail(), grades, absences);
     }
 
     private String getGradeForSubject(User user, Subject subject) {

@@ -12,4 +12,5 @@ import java.util.UUID;
 @Repository
 public interface GradeRepository extends JpaRepository<Grade, UUID> {
     List<Grade> findByStudentAndSubject(User user, Subject subject);
+    List<Grade> findByProfessor(User professor);
 }
