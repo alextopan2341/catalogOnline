@@ -43,7 +43,7 @@ Localizat în directorul `Server`, include:
   - `security`: Configurare JWT și filtre de securitate.
 
 - **Fișiere esențiale**:
-  - `application.properties`: Configurări pentru aplicație (ex.: conexiunea la baza de date).
+  - `application.properties`: Configurări pentru aplicație (ex.: conexiunea la baza de date PostgreSQL).
   - `pom.xml`: Definiții pentru dependențe și construcția proiectului.
 
 ---
@@ -62,13 +62,29 @@ Localizat în directorul `Server`, include:
 
 ---
 
+## Securitatea aplicației
+
+Securitatea este o componentă esențială a aplicației `Catalog Online`, implementată prin:
+
+- **Autentificare bazată pe JWT**:
+  - Utilizatorii primesc un token JWT după autentificare, care este utilizat pentru toate cererile ulterioare.
+  - Tokenurile sunt validate prin filtre personalizate în Spring Security.
+- **Criptarea parolelor**:
+  - Parolele utilizatorilor sunt criptate folosind algoritmul BCrypt înainte de stocare în baza de date.
+- **Controlul accesului**:
+  - API-urile sunt protejate pe baza rolurilor utilizatorilor, garantând accesul la resurse doar celor autorizați.
+- **CORS și securitatea cererilor**:
+  - Configurații personalizate pentru a permite doar cererile din surse de încredere.
+
+---
+
 ## Instrucțiuni de instalare
 
 ### Cerințe preliminare
 
 - Node.js și npm instalate pentru client.
 - JDK 11+ instalat pentru server.
-- MySQL pentru baza de date.
+- PostgreSQL pentru baza de date.
 
 ### Instalare client
 
@@ -91,7 +107,12 @@ Localizat în directorul `Server`, include:
    ```bash
    cd Server
    ```
-2. Configurați baza de date în `application.properties`.
+2. Configurați baza de date PostgreSQL în `application.properties`:
+   ```properties
+   spring.datasource.url=jdbc:postgresql://localhost:5432/catalog_online
+   spring.datasource.username=your_username
+   spring.datasource.password=your_password
+   ```
 3. Construiți și rulați aplicația:
    ```bash
    ./mvnw spring-boot:run
@@ -119,6 +140,4 @@ Pentru a contribui la proiect:
 
 ---
 
-## Licență
 
-Proiectul este licențiat sub [MIT License](LICENSE).
