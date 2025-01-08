@@ -30,6 +30,8 @@ const LoginPage = () => {
           } else if (user.role === "PROFESSOR") {
             localStorage.setItem("professorId", user.id);
             navigate("/professor"); // Redirecționare către ProfessorPage
+          }else if(user.role === "ADMIN"){
+            navigate("/admin")
           }
         });
       })
@@ -70,14 +72,6 @@ const LoginPage = () => {
         <button type="button" onClick={handleLogin} className="login-btn">
           Login
         </button>
-        <div className="register-section">
-          <p>Don't have an account?</p>
-          <Link to="/register">
-            <button type="button" className="register-btn">
-              Register Free
-            </button>
-          </Link>
-        </div>
       </form>
     </div>
   );

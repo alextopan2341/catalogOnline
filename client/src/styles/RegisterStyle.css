@@ -95,3 +95,7 @@ form {
 .transition-alert {
   margin-bottom: 20px;
 }
+.succes{
+  text-align: center;
+  color: #45a049
+}
