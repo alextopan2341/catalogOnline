@@ -41,7 +41,12 @@ public class ClassroomService {
         Classroom classroom = new Classroom();
         classroom.setTeacher(teacher);
         classroom.setName(classroomDto.getName());
-        classroom.setStudents(new HashSet<>());
+        Set<User> students = new HashSet<>();
+        for(UUID studId:classroomDto.getStudentIds()){
+            User user = userRepository.getReferenceById(studId);
+            students.add(user);
+        }
+        classroom.setStudents(students);
 
         return classroomRepository.save(classroom);
     }
@@ -138,6 +143,16 @@ public class ClassroomService {
 
     public Classroom getClassroomById(UUID classroomId){
         return classroomRepository.getReferenceById(classroomId);
+    }
+
+    public Classroom addStudentToClassroom(String classroomId,User student) {
+        Classroom classroom = classroomRepository.findById(UUID.fromString(classroomId))
+                .orElseThrow(() -> new RuntimeException("Classroom not found"));
+
+        Set<User> students = classroom.getStudents();
+        students.add(student);
+        classroom.setStudents(students);
+        return classroomRepository.save(classroom);
     }
 }
 

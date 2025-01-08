@@ -12,4 +12,5 @@ public class ClassroomDto {
     private String teacherName;
     private String name;
     private Map<UUID,String> students;
+    private Set<UUID> studentIds;
 }
