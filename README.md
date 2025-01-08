@@ -54,7 +54,7 @@ Localizat în directorul `Server`, include:
    - Bazată pe JWT (JSON Web Tokens).
    - Roluri de utilizatori: Admin, Profesor, Student.
 2. **Gestionarea claselor**:
-   - Crearea, modificarea și ștergerea claselor.
+   - Crearea și modificarea claselor.
 3. **Adăugarea și gestionarea notelor/absențelor**:
    - Profesori pot adăuga note și absențe pentru studenți.
 4. **Dashboard personalizat**:
@@ -131,7 +131,7 @@ Securitatea este o componentă esențială a aplicației `Catalog Online`, imple
 ## Contribuție
 
 Pentru a contribui la proiect:
-1. Faceți un fork al depozitului.
+1. Faceți un fork al repository-ului.
 2. Creați o ramură nouă:
    ```bash
    git checkout -b feature-xyz
@@ -143,6 +143,5 @@ Pentru a contribui la proiect:
 ## Structura Proiectului
 ![Diagrama](docs/catalog_online_diagram.png)
 ![Schema bazei de date](docs/catalog_online_db_schema.png)
-
 
 
