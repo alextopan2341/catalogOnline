@@ -1,11 +1,16 @@
 package com.example.server.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+@Setter
+@Getter
 @Entity
 public class Classroom {
 
@@ -22,48 +27,14 @@ public class Classroom {
     @JoinColumn(name = "teacher_id", nullable = false)
     private User teacher;
 
+    @Column(nullable = false)
+    private String name;
+
     @ManyToMany
     @JoinTable(
             name = "classroom_students",
             joinColumns = @JoinColumn(name = "classroom_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id")
     )
-    private Set<User> students;
-
-    @Column(nullable = false)
-    private String name;
-
-    // Getters and Setters
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public User getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(User teacher) {
-        this.teacher = teacher;
-    }
-
-    public Set<User> getStudents() {
-        return students;
-    }
-
-    public void setStudents(Set<User> students) {
-        this.students = students;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    private Set<User> students = new HashSet<>();
 }

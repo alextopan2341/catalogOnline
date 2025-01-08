@@ -6,8 +6,6 @@ import java.util.Set;
 import java.util.UUID;
 
 @Data
-public class ClassroomDto {
-    private UUID teacherId;
-    private String name;
+public class AddStudentDto {
     private Set<UUID> studentIds;
 }
