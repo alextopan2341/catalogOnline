@@ -1,0 +1,74 @@
+.Professor {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-image: url(../image.png); /* Schimbă imaginea dacă este nevoie */
+  background-size: cover;
+  background-position: center;
+}
+
+.professor-content {
+  width: 40%;
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.professor-content h2 {
+  font-size: 2em;
+  color: #333;
+}
+
+.professor-content p {
+  font-size: 1.2em;
+  color: #555;
+  margin-top: 10px;
+}
+
+.dashboard-section {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.dashboard-section h3 {
+  font-size: 1.5em;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+tr:hover {
+  background-color: #f9f9f9;
+}
+
+.attendance td {
+  color: blue;
+}
+
+.tasks td {
+  color: purple;
+}
