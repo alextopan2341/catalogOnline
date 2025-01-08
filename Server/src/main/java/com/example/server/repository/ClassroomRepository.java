@@ -11,4 +11,6 @@ import java.util.UUID;
 public interface ClassroomRepository extends JpaRepository<Classroom, UUID> {
     // Metodă pentru a găsi toate clasele unui profesor
     List<Classroom> findByTeacherId(UUID teacherId);
+
+    Classroom findByName(String name);
 }

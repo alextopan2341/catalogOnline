@@ -1,11 +1,15 @@
 package com.example.server.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.UUID;
 import java.time.LocalDate;
 
+@Setter
+@Getter
 @Entity
 public class Absence {
 
@@ -37,51 +41,4 @@ public class Absence {
 
     // Getters and Setters
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public User getStudent() {
-        return student;
-    }
-
-    public void setStudent(User student) {
-        this.student = student;
-    }
-
-    public User getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(User teacher) {
-        this.teacher = teacher;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public Boolean getJustified() {
-        return justified;
-    }
-
-    public void setJustified(Boolean justified) {
-        this.justified = justified;
-    }
 }

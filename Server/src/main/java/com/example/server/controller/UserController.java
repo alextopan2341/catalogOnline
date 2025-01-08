@@ -1,6 +1,7 @@
 package com.example.server.controller;
 
 import com.example.server.dtos.StudentDto;
+import com.example.server.dtos.UserResponseDto;
 import com.example.server.model.Role;
 import com.example.server.model.User;
 import com.example.server.security.jwttoken.JwtService;
@@ -10,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -93,4 +96,14 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+    @GetMapping("/getProfessors")
+    public @ResponseBody ResponseEntity<?> getProfessors(){
+        return ResponseEntity.ok(userService.getUserByRole(Role.PROFESSOR));
+    }
+
+    @GetMapping("/getStudents")
+    public @ResponseBody ResponseEntity<?> getStudents(){
+        return ResponseEntity.ok(userService.getUserByRole(Role.STUDENT));
+    }
+
 }

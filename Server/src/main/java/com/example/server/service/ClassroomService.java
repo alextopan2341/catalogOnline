@@ -2,22 +2,33 @@ package com.example.server.service;
 
 import com.example.server.dtos.AddStudentDto;
 import com.example.server.dtos.ClassroomDto;
+import com.example.server.dtos.StudentDto;
+import com.example.server.dtos.UserResponseDto;
+import com.example.server.model.Absence;
 import com.example.server.model.Classroom;
+import com.example.server.model.Grade;
 import com.example.server.model.User;
+import com.example.server.model.mapper.UserMapper;
+import com.example.server.repository.AbsenceRepository;
 import com.example.server.repository.ClassroomRepository;
+import com.example.server.repository.GradeRepository;
 import com.example.server.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class ClassroomService {
 
     @Autowired
     private ClassroomRepository classroomRepository;
+
+    @Autowired
+    private AbsenceRepository absenceRepository;
+
+    @Autowired
+    private GradeRepository gradeRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -30,7 +41,12 @@ public class ClassroomService {
         Classroom classroom = new Classroom();
         classroom.setTeacher(teacher);
         classroom.setName(classroomDto.getName());
-        classroom.setStudents(new HashSet<>());
+        Set<User> students = new HashSet<>();
+        for(UUID studId:classroomDto.getStudentIds()){
+            User user = userRepository.getReferenceById(studId);
+            students.add(user);
+        }
+        classroom.setStudents(students);
 
         return classroomRepository.save(classroom);
     }
@@ -50,4 +66,93 @@ public class ClassroomService {
         classroom.setStudents(students);
         return classroomRepository.save(classroom);
     }
+
+    public Map<UUID, Map<String, String>> getGradesByProfessor(UUID professorId) {
+        User professor = userRepository.findById(professorId)
+                .orElseThrow(() -> new RuntimeException("Professor not found"));
+
+        List<Grade> grades = gradeRepository.findByProfessor(professor);
+
+        Map<UUID, Map<String, String>> studentGrades = new HashMap<>();
+
+        for (Grade grade : grades) {
+            UUID studentId = grade.getStudent().getId();
+            studentGrades.putIfAbsent(studentId, new HashMap<>());
+            studentGrades.get(studentId).put(grade.getSubject().toString(), String.valueOf(grade.getGrade()));
+        }
+
+        return studentGrades;
+    }
+
+    public List<StudentDto> getStudentsForProfessor(UUID professorId) {
+        List<Classroom> classrooms = classroomRepository.findByTeacherId(professorId);
+        Map<UUID, Map<String, String>> studentGrades = getGradesByProfessor(professorId);
+
+        // Obține toate absențele profesorului
+        List<Absence> absences = absenceRepository.findByTeacherId(professorId);
+
+        // Grupează absențele după student și materie
+        Map<UUID, Map<String, Integer>> studentAbsences = new HashMap<>();
+        for (Absence absence : absences) {
+            UUID studentId = absence.getStudent().getId();
+            String subject = absence.getSubject();
+
+            studentAbsences.putIfAbsent(studentId, new HashMap<>());
+            studentAbsences.get(studentId).put(subject,
+                    studentAbsences.get(studentId).getOrDefault(subject, 0) + 1);
+        }
+
+        // Creează lista de DTO-uri pentru studenți
+        List<StudentDto> studentDtos = new ArrayList<>();
+        for (Classroom classroom : classrooms) {
+            for (User student : classroom.getStudents()) {
+                Map<String, String> grades = studentGrades.getOrDefault(student.getId(), new HashMap<>());
+                Map<String, Integer> absencesForStudent = studentAbsences.getOrDefault(student.getId(), new HashMap<>());
+                studentDtos.add(new StudentDto(student.getId(),student.getFullName(), student.getEmail(), grades, absencesForStudent));
+            }
+        }
+        return studentDtos;
+    }
+    public Classroom modifyStudentsToClassroom(String classroomId, AddStudentDto addStudentDto) {
+        Classroom classroom = classroomRepository.findById(UUID.fromString(classroomId))
+                .orElseThrow(() -> new RuntimeException("Classroom not found"));
+
+        Set<User> students = new HashSet<>();
+        for (UUID studentId : addStudentDto.getStudentIds()) {
+            User student = userRepository.findById(studentId)
+                    .orElseThrow(() -> new RuntimeException("Student not found"));
+            students.add(student);
+        }
+
+        classroom.setStudents(students);
+        return classroomRepository.save(classroom);
+    }
+    public List<Classroom> getAll(){
+        return classroomRepository.findAll();
+    }
+
+    public User getProfessorByName(String name){
+        Classroom classroom = classroomRepository.findByName(name);
+        return classroom.getTeacher();
+    }
+
+    public List<UserResponseDto> getStudentsByClassroomId(UUID classroomId){
+        Classroom classroom = classroomRepository.getReferenceById(classroomId);
+        return classroom.getStudents().stream().map(UserMapper::toResponseDTO).toList();
+    }
+
+    public Classroom getClassroomById(UUID classroomId){
+        return classroomRepository.getReferenceById(classroomId);
+    }
+
+    public Classroom addStudentToClassroom(String classroomId,User student) {
+        Classroom classroom = classroomRepository.findById(UUID.fromString(classroomId))
+                .orElseThrow(() -> new RuntimeException("Classroom not found"));
+
+        Set<User> students = classroom.getStudents();
+        students.add(student);
+        classroom.setStudents(students);
+        return classroomRepository.save(classroom);
+    }
 }
+

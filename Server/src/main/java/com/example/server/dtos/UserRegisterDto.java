@@ -13,4 +13,5 @@ public class UserRegisterDto {
     private String confirmPassword;
     private Role role;
     private Set<String> subjects;
+    private String classroom;
 }
