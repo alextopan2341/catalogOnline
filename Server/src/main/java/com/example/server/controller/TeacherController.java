@@ -36,7 +36,7 @@ public class TeacherController {
         return ResponseEntity.ok(grade);
     }
 
-    @PostMapping("/absences")
+    @PostMapping("/students/{studentId}/absences")
     public ResponseEntity<Absence> addAbsence(@RequestBody AbsenceDto absenceDto) {
         Absence absence = absenceService.addAbsence(absenceDto);
         return ResponseEntity.ok(absence);

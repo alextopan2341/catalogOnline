@@ -26,6 +26,7 @@ const LoginPage = () => {
 
           // Verificăm rolul utilizatorului și redirecționăm în consecință
           if (user.role === "STUDENT") {
+            localStorage.setItem("studentId", user.id);
             navigate("/student"); // Redirecționare către StudentPage
           } else if (user.role === "PROFESSOR") {
             localStorage.setItem("professorId", user.id);
