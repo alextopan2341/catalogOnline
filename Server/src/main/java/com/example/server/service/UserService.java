@@ -2,10 +2,12 @@ package com.example.server.service;
 
 import com.example.server.dtos.StudentDto;
 import com.example.server.dtos.UserLoginDto;
+import com.example.server.dtos.UserResponseDto;
 import com.example.server.model.Grade;
 import com.example.server.model.Role;
 import com.example.server.model.Subject;
 import com.example.server.model.User;
+import com.example.server.model.mapper.UserMapper;
 import com.example.server.repository.GradeRepository;
 import com.example.server.repository.UserRepository;
 import com.example.server.security.PasswordHasher;
@@ -89,5 +91,10 @@ public class UserService {
 
     public void saveUser(User user) {
         userRepository.save(user);
+    }
+
+    public List<UserResponseDto> getUserByRole(Role role){
+        List<User> userList = userRepository.findAllByRole(role);
+        return userList.stream().map((UserMapper::toResponseDTO)).toList();
     }
 }

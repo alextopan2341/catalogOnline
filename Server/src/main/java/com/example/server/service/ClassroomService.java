@@ -3,10 +3,12 @@ package com.example.server.service;
 import com.example.server.dtos.AddStudentDto;
 import com.example.server.dtos.ClassroomDto;
 import com.example.server.dtos.StudentDto;
+import com.example.server.dtos.UserResponseDto;
 import com.example.server.model.Absence;
 import com.example.server.model.Classroom;
 import com.example.server.model.Grade;
 import com.example.server.model.User;
+import com.example.server.model.mapper.UserMapper;
 import com.example.server.repository.AbsenceRepository;
 import com.example.server.repository.ClassroomRepository;
 import com.example.server.repository.GradeRepository;
@@ -39,7 +41,12 @@ public class ClassroomService {
         Classroom classroom = new Classroom();
         classroom.setTeacher(teacher);
         classroom.setName(classroomDto.getName());
-        classroom.setStudents(new HashSet<>());
+        Set<User> students = new HashSet<>();
+        for(UUID studId:classroomDto.getStudentIds()){
+            User user = userRepository.getReferenceById(studId);
+            students.add(user);
+        }
+        classroom.setStudents(students);
 
         return classroomRepository.save(classroom);
     }
@@ -106,4 +113,46 @@ public class ClassroomService {
         }
         return studentDtos;
     }
+    public Classroom modifyStudentsToClassroom(String classroomId, AddStudentDto addStudentDto) {
+        Classroom classroom = classroomRepository.findById(UUID.fromString(classroomId))
+                .orElseThrow(() -> new RuntimeException("Classroom not found"));
+
+        Set<User> students = new HashSet<>();
+        for (UUID studentId : addStudentDto.getStudentIds()) {
+            User student = userRepository.findById(studentId)
+                    .orElseThrow(() -> new RuntimeException("Student not found"));
+            students.add(student);
+        }
+
+        classroom.setStudents(students);
+        return classroomRepository.save(classroom);
+    }
+    public List<Classroom> getAll(){
+        return classroomRepository.findAll();
+    }
+
+    public User getProfessorByName(String name){
+        Classroom classroom = classroomRepository.findByName(name);
+        return classroom.getTeacher();
+    }
+
+    public List<UserResponseDto> getStudentsByClassroomId(UUID classroomId){
+        Classroom classroom = classroomRepository.getReferenceById(classroomId);
+        return classroom.getStudents().stream().map(UserMapper::toResponseDTO).toList();
+    }
+
+    public Classroom getClassroomById(UUID classroomId){
+        return classroomRepository.getReferenceById(classroomId);
+    }
+
+    public Classroom addStudentToClassroom(String classroomId,User student) {
+        Classroom classroom = classroomRepository.findById(UUID.fromString(classroomId))
+                .orElseThrow(() -> new RuntimeException("Classroom not found"));
+
+        Set<User> students = classroom.getStudents();
+        students.add(student);
+        classroom.setStudents(students);
+        return classroomRepository.save(classroom);
+    }
 }
+
